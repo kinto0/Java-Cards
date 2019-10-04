@@ -1,6 +1,6 @@
 package view;
 
-import model.IActionListener;
+import model.IModelEventListener;
 
 /**
  * Interface for a {@link model.IGame} view. Will be fleshed out more if non-terminal views are created.
@@ -17,5 +17,5 @@ public interface IView {
      * Sets up the listener to listen for player input.
      * @param l listener
      */
-    void setupListener(IActionListener l);
+    void setupListener(IModelEventListener l);
 }

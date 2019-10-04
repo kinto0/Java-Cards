@@ -2,21 +2,27 @@ package model;
 
 public class FiftyTwoCardPickup implements IGame {
 
-    private IActionListener listener;
+    private IModelEventListener listener;
     private final IDeck deck;
 
-    public FiftyTwoCardPickup(IActionListener l) {
+    public FiftyTwoCardPickup(IModelEventListener l) {
         this.deck = new StandardCardDeck();
     }
 
     @Override
-    public void setupListener(IActionListener l) {
+    public void setupListener(IModelEventListener l) {
         this.listener = l;
     }
 
     @Override
     public void start() {
         deck.shuffle();
-        listener.display("All the cards have hit the floor! Please pick them up by typing 'p.' ");
+        listener.display("All the cards have hit the floor!");
+        listener.addAction(new PickUpCardAction(new IActionListener() {
+            @Override
+            public void complete(String card) {
+                listener.display("You picked up " + card + "!");
+            }
+        }));
     }
 }

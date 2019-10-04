@@ -1,6 +1,6 @@
 package view;
 
-import model.IActionListener;
+import model.IModelEventListener;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ public class ConsoleView implements IView {
 
     private final Readable in;
     private final Appendable out;
-    private IActionListener listener;
+    private IModelEventListener listener;
 
     public ConsoleView(Readable input, Appendable output)
     {
@@ -31,7 +31,7 @@ public class ConsoleView implements IView {
     //todo: figure out player input
 
     @Override
-    public void setupListener(IActionListener l) {
+    public void setupListener(IModelEventListener l) {
         this.listener = l;
     }
 }

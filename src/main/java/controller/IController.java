@@ -9,7 +9,6 @@ public interface IController {
 
     /**
      * Starts the game.
-     * @param model
      */
-    void play(IGame model);
+    void play();
 }
