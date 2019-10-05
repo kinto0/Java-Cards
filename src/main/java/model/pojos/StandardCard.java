@@ -1,11 +1,12 @@
-package model;
+package model.pojos;
 
-import controller.IController;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode
+@ToString
 public class StandardCard implements ICard {
     private final int value;
     private final String name;

@@ -1,11 +1,20 @@
 package model;
 
+import model.actions.GameOverAction;
+import model.actions.IActionListener;
+import model.actions.KeyboardAction;
+import model.pojos.IDeck;
+import model.pojos.StandardCardDeck;
+
+/**
+ * 52 card pickup. The simplest of games.
+ */
 public class FiftyTwoCardPickup implements IGame {
 
-    private IModelEventListener listener;
+    private IModelEventListener<String> listener;
     private final IDeck deck;
 
-    public FiftyTwoCardPickup(IModelEventListener l) {
+    FiftyTwoCardPickup() {
         this.deck = new StandardCardDeck();
     }
 
@@ -18,11 +27,16 @@ public class FiftyTwoCardPickup implements IGame {
     public void start() {
         deck.shuffle();
         listener.display("All the cards have hit the floor!");
-        listener.addAction(new PickUpCardAction(new IActionListener() {
-            @Override
-            public void complete(String card) {
-                listener.display("You picked up " + card + "!");
-            }
-        }));
+
+        for (int i = 0; i < 52; i++){
+            listener.addAction(new KeyboardAction(new IActionListener<String>() {
+                @Override
+                public void callback(String input) {
+                    listener.display("You picked up " + deck.pop().toString() + "!");
+                }
+            }, "Press any key to pick up a card!"));
+        }
+
+        listener.addAction(new GameOverAction());
     }
 }

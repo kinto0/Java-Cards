@@ -1,21 +1,19 @@
 package controller;
 
-import com.google.common.base.Preconditions;
 import model.IGame;
-import model.IGameAction;
-import model.IModelEventListener;
+import model.actions.IGameAction;
 import view.IView;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * Since it is a terminal game, this controller can handle input and output, meaning a view is unnecessary.
+ * This controller connects the model (game) and the view together.
  */
-public class TerminalController implements IController, IModelEventListener {
+public class TerminalController implements IController<String> {
     private final IView view;
     private final IGame game;
-    private final Deque<IGameAction> actions;
+    private final Deque<IGameAction<String>> actions;
     private boolean blocked;
 
     /**
@@ -24,8 +22,6 @@ public class TerminalController implements IController, IModelEventListener {
      *  @param game model of the game
      */
     public TerminalController(IView view, IGame game) {
-        Preconditions.checkNotNull(view);
-        Preconditions.checkNotNull(game);
         this.view = view;
         this.game = game;
         this.blocked = false;
@@ -46,7 +42,7 @@ public class TerminalController implements IController, IModelEventListener {
     }
 
     @Override
-    public void addAction(IGameAction action) {
+    public void addAction(IGameAction<String> action) {
         actions.add(action);
         if (!blocked) {
             executeActions();
@@ -55,9 +51,9 @@ public class TerminalController implements IController, IModelEventListener {
 
     private void executeActions() {
         while (!actions.isEmpty()) {
-            IGameAction current = actions.pop();
+            IGameAction<String> current = actions.pop();
             view.display(current.instructions());
-            // TODO: wait on action to complete
+            current.complete(view.listen());
         }
         this.blocked = false;
     }

@@ -3,6 +3,7 @@ package view;
 import model.IModelEventListener;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * View for playing the game in a terminal window.
@@ -22,16 +23,23 @@ public class ConsoleView implements IView {
     @Override
     public void display(String text) {
         try {
-            out.append(text);
+            out.append(text).append("\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //todo: figure out player input
-
     @Override
     public void setupListener(IModelEventListener l) {
         this.listener = l;
+    }
+
+    @Override
+    public String listen() {
+        Scanner sc = new Scanner(in);
+
+        while(!sc.hasNext()) {}
+
+        return sc.next();
     }
 }

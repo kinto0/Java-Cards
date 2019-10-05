@@ -5,7 +5,7 @@ import model.IModelEventListener;
 /**
  * Interface for a {@link model.IGame} view. Will be fleshed out more if non-terminal views are created.
  */
-public interface IView {
+public interface IView extends IInputListener {
 
     /**
      * Display the inputted text.

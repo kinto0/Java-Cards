@@ -1,4 +1,4 @@
-package model;
+package model.pojos;
 
 /**
  * A card.
@@ -6,5 +6,5 @@ package model;
 public interface ICard {
     int getValue();
     String getName();
-    String getSuit();
+    StandardSuit getSuit();
 }
